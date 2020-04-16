@@ -26,19 +26,22 @@ body {
 
 }
 
-#filed {
+#field {
   margin: 50px;
   width: 456px;
   height: 456px;
   display: grid;
   grid-template-columns: repeat(3, 152px);
   grid-template-rows: repeat(3, 152px);
-  background: url("img/british/british.jpg") no-repeat;
+ /* background: url("img/british/british.jpg") no-repeat;
   background-size: cover;
-  opacity: 0.5;
+  opacity: 0.5;*/
 
-  .filed-item {
+  .field-item {
     border: 1px solid white;
+    &.over {
+      border: 2px dashed #ffffff;
+    }
   }
 }
 
