@@ -1,0 +1,40 @@
+body {
+  box-sizing: padding-box;
+  background: #411140;
+  text-align: center;
+  color: white;
+}
+
+.container {
+  display: flex;
+}
+
+#puzzle {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  margin: 50px;
+}
+#puzzle .puzzle-item {
+  width: 150px;
+  height: 150px;
+  border: 1px solid white;
+}
+
+#filed {
+  margin: 50px;
+  width: 456px;
+  height: 456px;
+  display: grid;
+  grid-template-columns: repeat(3, 152px);
+  grid-template-rows: repeat(3, 152px);
+  background: url("img/british/british.jpg") no-repeat;
+  background-size: cover;
+  opacity: 0.5;
+}
+#filed .filed-item {
+  border: 1px solid white;
+}
+
+/*# sourceMappingURL=style.css.map */
