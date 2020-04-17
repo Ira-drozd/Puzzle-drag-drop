@@ -18,9 +18,9 @@ $(document).ready(function () {
 
     // drag&drop
 
-    function handleDragStart(e) {
+    /*function handleDragStart(e) {
         $(this).css('opacity', 0.5);
-    }
+    }*/
 
     function handleDragEnd(e) {
         $(this).css('opacity', 1);
@@ -34,11 +34,6 @@ $(document).ready(function () {
         this.addEventListener('dragend', handleDragEnd, false);
     })
 
-    fieldItems.each(function () {
-        this.addEventListener('dragover', handleDragOver, false);
-        this.addEventListener('dragenter', handleDragEnter, false);
-        this.addEventListener('dragleave', handleDragLeave, false);
-    })
 
     //Task 2
 
@@ -61,5 +56,67 @@ $(document).ready(function () {
         $(e.target).removeClass('over');
     }
 
+    fieldItems.each(function () {
+        this.addEventListener('dragover', handleDragOver, false);
+        this.addEventListener('dragenter', handleDragEnter, false);
+        this.addEventListener('dragleave', handleDragLeave, false);
+
+        this.addEventListener('dragstart', handleDragStart, false);
+        this.addEventListener('dragend', handleDragEnd, false);
+        this.addEventListener('drop',handleDrop, false);
+    })
+
+//Task 3
+
+    let dragSrcEl = null;
+
+    function handleDragStart(e) {
+        // Target (this) element is the source node.
+        $(this).css('opacity', 0.5);
+
+        dragSrcEl = this;
+
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/html', this.innerHTML);
+    }
+
+    function handleDrop(e) {
+        // this/e.target is current target element.
+
+        if (e.stopPropagation) {
+            e.stopPropagation(); // Stops some browsers from redirecting.
+        }
+
+        // Don't do anything if dropping the same column we're dragging.
+        if (dragSrcEl != this) {
+            // Set the source column's HTML to the HTML of the columnwe dropped on.
+            dragSrcEl.innerHTML = this.innerHTML;
+            this.innerHTML = e.dataTransfer.getData('text/html');
+        }
+
+        return false;
+    }
+
+/*    function handleDrop(e) {
+        // this / e.target is current target element.
+
+        if (e.stopPropagation) {
+            e.stopPropagation(); // stops the browser from redirecting.
+        }
+
+        // See the section on the DataTransfer object.
+
+        return false;
+    }
+
+
+
+}
+
+    var cols = document.querySelectorAll('#columns .column');
+    [].forEach.call(cols, function(col) {
+        col.addEventListener('drop', handleDrop, false);
+        col.addEventListener('dragend', handleDragEnd, false);
+    });*/
 
 })
