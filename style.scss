@@ -18,12 +18,14 @@ body {
   align-content: flex-start;
   margin: 50px;
 
-  .puzzle-item {
-    width: 150px;
-    height: 150px;
-    border: 1px solid white;
-  }
 
+
+}
+
+.puzzle-item {
+  width: 150px;
+  height: 150px;
+  border: 1px solid white;
 }
 
 #field {

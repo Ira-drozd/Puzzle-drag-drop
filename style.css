@@ -16,7 +16,8 @@ body {
   align-content: flex-start;
   margin: 50px;
 }
-#puzzle .puzzle-item {
+
+.puzzle-item {
   width: 150px;
   height: 150px;
   border: 1px solid white;

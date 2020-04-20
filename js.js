@@ -49,12 +49,15 @@ $(document).ready(function () {
 
     function handleDragEnter(e) {
         $(e.target).addClass('over');
+
     }
 
 
     function handleDragLeave(e) {
         $(e.target).removeClass('over');
+
     }
+
 
     fieldItems.each(function () {
         this.addEventListener('dragover', handleDragOver, false);
@@ -63,7 +66,9 @@ $(document).ready(function () {
 
         this.addEventListener('dragstart', handleDragStart, false);
         this.addEventListener('dragend', handleDragEnd, false);
-        this.addEventListener('drop',handleDrop, false);
+        this.addEventListener('drop', handleDrop, false);
+
+
     })
 
 //Task 3
@@ -71,52 +76,45 @@ $(document).ready(function () {
     let dragSrcEl = null;
 
     function handleDragStart(e) {
-        // Target (this) element is the source node.
         $(this).css('opacity', 0.5);
-
-        dragSrcEl = this;
-
+        dragSrcEl = $(e.target);
         e.dataTransfer.effectAllowed = 'move';
-        e.dataTransfer.setData('text/html', this.innerHTML);
+
     }
 
     function handleDrop(e) {
-        // this/e.target is current target element.
 
         if (e.stopPropagation) {
             e.stopPropagation(); // Stops some browsers from redirecting.
         }
+        $(e.target).append(dragSrcEl);
+        $(e.target).removeClass('over');
 
-        // Don't do anything if dropping the same column we're dragging.
-        if (dragSrcEl != this) {
-            // Set the source column's HTML to the HTML of the columnwe dropped on.
-            dragSrcEl.innerHTML = this.innerHTML;
-            this.innerHTML = e.dataTransfer.getData('text/html');
-        }
-
-        return false;
-    }
-
-/*    function handleDrop(e) {
-        // this / e.target is current target element.
-
-        if (e.stopPropagation) {
-            e.stopPropagation(); // stops the browser from redirecting.
-        }
-
-        // See the section on the DataTransfer object.
+        checkPuzl(fieldItems);
 
         return false;
     }
 
 
+    function checkPuzl() {
+        //return [...arguments[0]].some(item =>item.firstChild !== null);//если они все не пустые true every
 
-}
+        try {
+            if ([...arguments[0]].every(item => item.firstChild !== null)) {
+                if ([...arguments[0]].every((item, index) => {
+                    let background = $(item.firstChild).css('background');
+                    return background.includes(`britich${index + 1}.jpg`);
+                })) {
+                    alert('You win!');
+                }
 
-    var cols = document.querySelectorAll('#columns .column');
-    [].forEach.call(cols, function(col) {
-        col.addEventListener('drop', handleDrop, false);
-        col.addEventListener('dragend', handleDragEnd, false);
-    });*/
+            }
+
+        } catch (e) {
+            console.log(e.message);
+        }
+
+    }
+
 
 })
